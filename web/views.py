@@ -246,7 +246,7 @@ def help(request, *args, **kwargs):
         article_list = article_list.filter(category__title=param)
     elif condition == 'archive':
         year_t = param.split('-')
-        article_list = article_list.filter(upload_time__year=year_t[0], upload_time__month=year_t[1])
+        article_list = article_list.filter(upload_time__year=year_t[0], upload_time__month=year_t[1]).order_by("nid")
 
     # 所有标签对应的文章数 利用分组函数
     tag_ret = models.Tag.objects.all().annotate(count=Count('article__nid')).values_list('title', 'count')
