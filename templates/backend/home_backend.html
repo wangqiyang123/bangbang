@@ -1,0 +1,166 @@
+{% extends 'backend/backend_base.html' %}
+
+
+{% block article %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>标题</th>
+            <th>地区</th>
+            <th>评论数</th>
+            <th>点赞数</th>
+            <th>操作</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in page_article %}
+            <tr>
+
+                <td><a href="/index/{{ u_id }}/article/{{ article.nid }}">{{ article.title }}</a></td>
+                <td>{{ article.area }}</td>
+                <td>{{ article.commit_num }}</td>
+                <td>{{ article.up_num }}</td>
+                <td><a href='/index/delete_artilce/?nid={{ article.nid }}'>删除</a></td>
+                <td><a href="/index/update_artilce?nid={{ article.nid }}">编辑</a></td>
+
+            </tr>
+
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+    <div style="margin-top: 10px">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_article.has_previous %}
+                    <li>
+                        <a href="{% url 'home_backend' %}?number={{ page_article.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for number in page_article.paginator.page_range %}
+                    <li><a href="{% url 'home_backend' %}?number={{ number }}">{{ number }}</a></li>
+                {% endfor %}
+                {% if page_article.has_next %}
+                    <li>
+                        <a href="{% url 'home_backend' %}?number={{ page_article.next_page_number }}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block person %}
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>头像</td>
+            <td><img src="/static/{{ user.u_head_picture }}" height="50px" width="50px"></td>
+        </tr>
+        <tr>
+            <td>账号</td>
+            <td>{{ user.u_id }}</td>
+        </tr>
+        <tr>
+            <td>用户名</td>
+            <td>{{ user.u_name }}</td>
+        </tr>
+        <tr>
+            <td>性别</td>
+
+            {% if user.u_gender == 'male' %}
+                <td>男</td>
+            {% else %}
+                <td>女</td>
+            {% endif %}
+
+        </tr>
+        <tr>
+            <td>生日</td>
+            <td>{{ user.u_birthday|date:'Y年m月d日' }}</td>
+        </tr>
+        <tr>
+            <td>电话号码</td>
+            <td>{{ user.u_phone }}</td>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td>{{ user.u_email }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block commit %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>文章标题</th>
+            <th>评论详情</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in page_article %}
+            <tr>
+                <td style="width: 50%;"><a href="/index/{{ u_id }}/article/{{ article.nid }}">{{ article.title }}</a>
+                </td>
+                <td style="width: 50%;">
+                    <table class="table table-condensed">
+                        <thead>
+                        <tr>
+                            <th>评论者</th>
+                            <th>评论内容</th>
+                            <th>评论时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for commit in article.commit_set.all %}
+                            <tr>
+                                <td>{{ commit.user.u_name }}</td>
+                                <td>{{ commit.content }}</td>
+                                <td>{{ commit.create_time|date:'Y-m-d H:m' }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="margin-top: 10px">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_article.has_previous %}
+                    <li>
+                        <a href="{% url 'home_backend' %}?number={{ page_article.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for number in page_article.paginator.page_range %}
+                    <li><a href="{% url 'home_backend' %}?number={{ number }}">{{ number }}</a></li>
+                {% endfor %}
+                {% if page_article.has_next %}
+                    <li>
+                        <a href="{% url 'home_backend' %}?number={{ page_article.next_page_number }}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

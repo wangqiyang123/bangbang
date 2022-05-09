@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>关于我们</title>
+    {% extends 'index.html' %}
+    {% load static %}
+
+
+</head>
+<body>
+<!--header-->
+{% block middle %}
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+
+                <div class="top-nav">
+                    <span class="menu"><img src="{% static 'images/menu.png' %}" alt=""> </span>
+
+                    <ul>
+                        <li><a href="{% url "home" %}">主页</a><span>/</span></li>
+                        <li class="active"><a href="{% url "about" %}">关于我们</a><span>/</span></li>
+                        <li><a href="{% url "help" %}">互助广场</a><span>/</span></li>
+                        <li><a href="">公约</a><span>/</span></li>
+                        {% if is_login %}
+                            <li><a href="/index/{{ u_id }}">欢迎：{{ username }}</a></li>
+                            <li><a href="{% url "logout" %}">退出登录</a></li>
+                        {% else %}
+                            <li><a href="{% url "login" %}">登录</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="logo">
+                    <h1><a href="{% url "home" %}">帮帮网</a></h1>
+                    <p>Social Services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+
+    <div class="about">
+        <div class="container">
+            <div class="about-left">
+                <h2>关于我们</h2>
+                <div class="about-bottom">
+                    <div class="col-md-7 about-grid">
+                        <h6><a href="{% url "login" %}">如果你感兴趣，请加入我们吧</a></h6>
+                        <p style="text-indent: 2em">
+                            疫情和灾情的发生往往是在一瞬之间，救灾抗疫最重要的是及早获取当地灾情和疫区的信息，从而进行救援与帮扶。突发事件中，人们对信息的需求程度大幅提升，即使身处信息爆炸时代，所有有效、有用的信息都是稀缺资源。在互联网技术加持下，移动通信装备提高了信息生产能力和传播速度，视频直播等传播方式增强了信息内容的直观性和画面感。与此同时，海量信息喷涌而出，一些信息裹挟自媒体的情绪宣泄，造成信源污染、信息噪音和传播污染。对此，政府、媒体急需阻击各种谣言给人民群众带来恐慌，及时减缓突发事件带来的负面影响。信息时代，如何用好“互联网
+                            +”这把双刃剑，在信息洪流中披沙拣金，快速聚合有价值的信息，是传媒业界面临的重要课题。我们致力于帮助需要帮助的小伙伴，一起变强，一起成长！
+                        </p>
+                    </div>
+                    <div class="col-md-5 about-grid1">
+                        <a href="single.html">
+                            <img src="{% static "images/about.jpg" %}" alt="" class="img-responsive ">
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" in-profile">
+
+            <div class="container">
+                <h3>团队</h3>
+                <div class="teamo">
+                    <div class="team-left ">
+                        <div class="col-md-3 team-top">
+                            <img class="img-responsive" src="/static/imag/zyz.jpg" alt="">
+                            <h6>志愿者/管理员</h6>
+                            <p>管理收集到的信息，帮助网友的各种诉求。</p>
+                        </div>
+                        <div class="col-md-3 team-top ">
+                            <img class="img-responsive  " src="/static/imag/cxy.jpg" alt="">
+                            <h6>网站维护人员</h6>
+                            <p>维护网站的运行，管理数据库中数据，实时对网站进行维护。</p>
+                        </div>
+                        <div class="col-md-3 team-top">
+                            <img class="img-responsive  " src="/static/imag/wy.jpg" alt="">
+                            <h6>网友</h6>
+                            <p>是本网站最重要的组成部分，发布相关求助信息或进行评论，帮助或受到帮助。</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---->
+
+        <!---->
+    </div>
+{% endblock %}
+
+</body>
+</html>

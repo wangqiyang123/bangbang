@@ -1,0 +1,299 @@
+{% extends "index.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% block mycss %}
+        <link rel="stylesheet" href="{% static 'css/commcss.css' %}">
+    {% endblock %}
+</head>
+<body>
+{% block middle %}
+
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="top-nav">
+                    <span class="menu"><img src="images/menu.png" alt=""> </span>
+
+                    <ul>
+                        <li><a href="{% url "home" %}">主页</a><span>/</span></li>
+                        <li><a href="{% url "about" %}">关于我们</a><span>/</span></li>
+
+                        <li><a href="{% url "help" %}">互助广场</a><span>/</span></li>
+                        <li><a href="">公约</a><span>/</span></li>
+                        {% if is_login %}
+                            <li><a href="/index/{{ u_id }}">欢迎：{{ username }}</a></li>
+                            <li><a href="{% url "logout" %}">退出登录</a></li>
+                        {% else %}
+                            <li><a href="{% url "login" %}">登录</a></li>
+
+                        {% endif %}
+                    </ul>
+
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="logo">
+                    <h1><a href="">{{ article.title }}</a></h1>
+                    <p>{{ article.update_time|date:'Y-m-d H:i' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">我的标签</div>
+                    <div class="panel-body">
+                        {% for tag in tag_ret %}
+                            <p><a href="/index/{{ u_id }}/tag/{{ tag.2 }}">{{ tag.0 }}({{ tag.1 }})</a></p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">随笔分类</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for category in category_ret %}
+                            <p>
+                                <a href="/index/{{ u_id }}/category/{{ category.2 }}">{{ category.0 }}({{ category.1 }})</a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">随笔档案</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for time in time_ret %}
+                            <p>
+                                <a href="/index/{{ u_id }}/archive/{{ time.0|date:"Y-m" }}">{{ time.0|date:"Y年m月" }}({{ time.1 }})</a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div>
+
+
+
+                    <p style="margin:10px">
+
+                    <table class="table table-hover">
+                        <tbody>
+
+                        <tr>
+                            <td>地址</td>
+                            <td>{{ article.area }}{{ article.detail_area }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>求助人姓名</td>
+                            <td>{{ article.help_pname }}</td>
+                        </tr>
+                        <tr>
+                            <td>求助人数</td>
+                            <td>{{ article.help_pnumber }}</td>
+                        </tr>
+                        <tr>
+                            <td>救助状态</td>
+                            <td>
+                                {% if article.help_state == 0  %}
+                                    未救援
+                                {% else %}
+                                    已救助
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td>{{ article.detail }}</td>
+                        </tr>
+                        <tr>
+                            <td>标签</td>
+                            <td>
+                                {% for tag in tag_value %}
+                                    {{ tag.0 }}
+                                {% endfor %}
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    </p>
+                </div>
+
+
+                <div class="clearfix">
+                    <div id="div_digg">
+                        <div class="diggit upanddown">
+                            <span class="diggnum" id="digg_count">{{ article.up_num }}</span>
+                        </div>
+                        <div class="buryit upanddown">
+                            <span class="burynum" id="bury_count">{{ article.down_num }}</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="diggword" id="digg_tips" style="color: red;"></div>
+                    </div>
+                </div>
+
+                <div>
+
+                    <p>评论列表</p>
+                    <ul class="list-group commit_content">
+                        {% for commit in commit_list %}
+                            <li class="list-group-item">
+                                <p>
+                                    <span>#{{ forloop.counter }}楼</span>
+                                    <span>{{ commit.create_time|date:"Y-m-d H:i" }}</span>
+                                    <span>{{ commit.user.u_name }}</span>
+                                    <span class="pull-right reply" username="{{ commit.user.u_name }}"
+                                          commit_id="{{ commit.pk }}"><a>回复</a></span>
+                                </p>
+                                {% if commit.parent %}
+                                    <p class="well">
+                                        @{{ commit.parent.user.u_name }}------>>>{{ commit.parent.content }}</p>
+                                {% endif %}
+                                {{ commit.content }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
+                <div>
+                    <p id="commentform_title">发表评论</p>
+                    <p>
+                        昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50"
+                                  value="{{ username }}">
+                    </p>
+                    <p style="padding: 5px 0px 5px 0px;">评论内容</p>
+                    <textarea id="id_textarea" cols="80" rows="10"></textarea>
+
+                    <p>
+                        <button class="btn btn-success" id="btn_submit">提交</button>
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+
+        var parent_id = ''
+        //点赞相关
+        $(".upanddown").click(function () {
+
+            var is_up = $(this).hasClass('diggit')
+            var cu_span = $(this).children('span')
+
+            $.ajax({
+                url: '/index/diggit/',
+                type: 'post',
+                data: {article_id: '{{ article.pk }}', is_up: is_up, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success: function (data) {
+                    console.log(data)
+                    $("#digg_tips").html(data.msg)
+                    if (data.code == 100) {
+                        cu_span.text(Number(cu_span.text()) + 1)
+                    }
+                }
+            })
+
+        })
+
+        //回复相关
+        $(".reply").click(function () {
+            var username = '@' + $(this).attr('username') + '\n'
+            parent_id = $(this).attr('commit_id')
+            //光标聚焦
+            $("#id_textarea").focus()
+            $("#id_textarea").val(username)
+        })
+
+        //评论相关
+        $("#btn_submit").click(function () {
+
+            var content = $("#id_textarea").val()
+
+            if (parent_id) {
+                //有值，截取
+                var index = content.indexOf('\n') + 1
+                content = content.slice(index)
+            }
+            $.ajax({
+                url: '/index/commit/',
+                type: 'post',
+                data: {
+                    article_id: '{{ article.pk }}',
+                    content: content,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    parent_id: parent_id
+                },
+                success: function (data) {
+                    console.log(data)
+                    //清除输入框数据
+                    $("#id_textarea").val("")
+                    if (data.code == 100) {
+                        //列表后追加内容
+                        var username = data.username
+                        var reply_content = data.reply_content
+                        if (parent_id) {
+                            var parent_name = data.parent_name
+                            var s = `
+                            <li class="list-group-item">
+                                <p>
+                                    <span>${username}</span>
+                                </p>
+                                <p class="well">@${parent_name}</p>
+                                ${reply_content}
+                            </li>
+                        `
+                        } else {
+
+                            var s = `
+                            <li class="list-group-item">
+                                <p>
+                                    <span>${username}</span>
+
+                                </p>
+                                ${reply_content}
+                            </li>
+                        `
+                        }
+
+                        $(".commit_content").append(s)
+                    }
+                }
+            })
+        })
+
+    </script>
+
+{% endblock %}
+</body>
+</html>
+

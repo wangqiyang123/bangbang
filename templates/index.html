@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>帮帮网</title>
+    {% block title %}
+        {% load static %}
+
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all"/>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <!-- Custom Theme files -->
+        <!--theme-style-->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
+        <!--//theme-style-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+        <script type="application/x-javascript"> addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
+
+        <!--fonts-->
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet'
+              type='text/css'>
+        <!--//fonts-->
+        <script src="{% static 'js/responsiveslides.min.js' %}"></script>
+        <script>
+            $(function () {
+                $("#slider").responsiveSlides({
+                    auto: true,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    pager: true,
+                });
+            });
+        </script>
+        {% block mycss %}{% endblock %}
+
+    {% endblock %}
+</head>
+<body>
+{% block middle %}
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="top-nav">
+                    <span class="menu"><img src="{% static 'images/menu.png' %}" alt=""> </span>
+
+                    <ul>
+                        <li class="active"><a href="{% url "home" %}">主页</a><span>/</span></li>
+                        <li><a href="{% url "about" %}">关于我们</a><span>/</span></li>
+                        <li><a href="{% url "help" %}">互助广场</a><span>/</span></li>
+                        <li><a href="{% url "single" %}">公约</a><span>/</span></li>
+                        {% if is_login %}
+                            <li><a href="/index/{{ u_id }}">欢迎：{{ username }}</a></li>
+                            <li><a href="{% url "logout" %}">退出登录</a></li>
+                        {% else %}
+                            <li><a href="{% url "login" %}">登录</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="logo">
+                    <h1><a href="{% url "home" %}">帮帮网</a></h1>
+                    <p>Social Services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider">
+        <div class="callbacks_container">
+            <ul class="rslides" id="slider">
+                <li>
+                    <img src="/static/imag/banner.jpg" alt="">
+
+                </li>
+                <li>
+                    <img src="/static/imag/banner3.jpg" alt="">
+
+                </li>
+                <li>
+                    <img src="/static/imag/banner2.jpg" alt="">
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+            <div class="content-top">
+                <div class="content-top1">
+
+                    <div class=" col-md-4 grid-top">
+                        <div class="thumbnail">
+                            <div class="grid-at">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <h3 class="grid">地震</h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <p> 地震（英文：earthquake），又称地动、地振动，是地壳快速释放能量过程中造成的振动，期间会产生地震波的一种自然现象。</p>
+
+                        </div>
+                    </div>
+                    <div class=" col-md-4 grid-top">
+                        <div class="thumbnail">
+                            <div class="grid-at">
+                                <i class="glyphicon glyphicon-tree-deciduous"></i>
+                                <h3 class="grid">洪水</h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <p> 河流、海洋、湖泊等水体上涨超过一定水位，威胁有关地区的安全，甚至造成灾害的水流。</p>
+
+                        </div>
+                    </div>
+                    <div class=" col-md-4 grid-top">
+                        <div class="thumbnail">
+                            <div class="grid-at">
+                                <i class="glyphicon glyphicon-copy"></i>
+                                <h3 class="grid">疫情</h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <p> 指疫病的发生和发展情况。较大范围内出现的较大型疫情有重症急性呼吸综合征、甲型H1N1流感及新型冠状病毒肺炎等。 </p>
+
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="content-bottom">
+
+                <div class="col-md-6 red">
+                    <a href="{% url 'help' %}"><img class="img-responsive" src="/static/imag/pi.jpg" alt=""></a>
+                </div>
+                <div class="col-md-6 come">
+                    <div class=" welcome">
+                        <h3>帮助需要帮助的人</h3>
+                        <p class="for">善良和爱都是免费的，但不是廉价的，你的善良，需要带点锋芒，你的爱，需要带些理智，带眼识人，毕竟不是所有人都配拥有它们。</p>
+                        <p>生活中出现不顺心的事情，不要心怀不满、怨气冲天，也不必耿耿于怀、一蹶不振，是福是祸都得面对，是好是坏都会过去。生气，是拿别人的错误惩罚自己。</p>
+                        <a class="hvr-rectangle-out" href="{% url 'about' %}">了解我们</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="content-use">
+                <div class=" content-use-bottom">
+                    <h3>我们的工作</h3>
+                    <div class="our">
+                        <div class="col-md-4 our-at">
+                            <a href="{% url 'about' %}"><img class="img-responsive" src="/static/imag/work1.jpg"
+                                                             alt=""></a>
+                            <h4><a href="#">在网络上发布相关求助信息，帮助受灾者及时得到救助</a></h4>
+
+
+                        </div>
+                        <div class="col-md-4 our-at">
+                            <a href="{% url 'about' %}"><img class="img-responsive" src="/static/imag/work2.jpg"
+                                                             alt=""></a>
+                            <h4><a href="#">提供一个平台来让更多的人了解周围疫情，并帮助受疫情困扰的朋友们</a></h4>
+
+
+                        </div>
+                        <div class="col-md-4 our-at">
+                            <a href="{% url 'about' %}"><img class="img-responsive" src="/static/imag/work3.jpg"
+                                                             alt=""></a>
+                            <h4><a href="#">天灾无情人有情，管理人员及时核查求助信息，确保尽快、精准的帮助到需要帮助的人</a></h4>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!---->
+        <div class="col-mn">
+            <div class="container">
+
+                <div class="col-mn2">
+                    <h3>最真挚的祝福</h3>
+                    <p>愿天下无灾，愿需要帮助的人都得到及时的救助，愿善良的人永远被善待。</p>
+
+                </div>
+            </div>
+        </div>
+        <!---->
+        <div class="container">
+            <div class="content-mid">
+                <h3> 高赞文章</h3>
+                <div class="news">
+                    <div class="col-md-6 new-more">
+                        <div class="six">
+                            <h4>{{ best_article.upload_time.day }}<span>{{ best_article.upload_time.month }}月</span></h4>
+                            <h6><a href="/index/{{ best_article.blog.p_user.u_id }}/article/{{ best_article.nid }}">{{ best_article.title }}</a></h6>
+                            <div class="clearfix"></div>
+                        </div>
+                        <p>{{ best_article.area }}{{ best_article.detail_area }}</p>
+                        <a class="hvr-rectangle-out" href="/index/{{ best_article.blog.p_user.u_id }}/article/{{ best_article.nid }}">了解详情</a>
+                    </div>
+                    <div class="col-md-6 new-more">
+                        <div class="six">
+                            <h4>{{ second_article.upload_time.day }}<span>{{ second_article.upload_time.month }}月</span></h4>
+                            <h6><a href="/index/{{ second_article.blog.p_user.u_id }}/article/{{ second_article.nid }}">{{ second_article.title }}</a></h6>
+                            <div class="clearfix"></div>
+                        </div>
+                        <p>{{ second_article.area }}{{ second_article.detail_area }}</p>
+                        <a class="hvr-rectangle-out" href="/index/{{ second_article.blog.p_user.u_id }}/article/{{ second_article.nid }}">了解详情</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    <div class="footer">
+
+        <div class="container">
+            <div class="class-footer">
+                <p class="footer-grid">Copyright &copy; 2022.Company name All rights reserved.<a target="_blank"
+                                                                                                 href="{% url 'home' %}">bangbang</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>个人中心</title>
+    {% extends "index.html" %}
+    {% load static %}
+</head>
+<body>
+{% block middle %}
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+
+                <div class="top-nav">
+                    <span class="menu"><img src="images/menu.png" alt=""> </span>
+
+                    <ul>
+                        <li><a href="{% url "home" %}">主页</a><span>/</span></li>
+                        <li><a href="{% url "about" %}">关于我们</a><span>/</span></li>
+                        <li><a href="">互助广场</a><span>/</span></li>
+                        <li class="active"><a href="">公约</a><span>/</span></li>
+                        {% if is_login %}
+                            <li><a href="/index/{{ u_id }}">欢迎：{{ username }}</a></li>
+                            <li><a href="{% url "logout" %}">退出登录</a></li>
+                        {% else %}
+                            <li><a href="{% url "login" %}">登录</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="logo">
+                    <h1><a href="{% url "home" %}">帮帮网</a></h1>
+                    <p>Social Services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-center">帮帮网互助公约</h2>
+    <div style="margin: 10px">
+        <p style="text-indent: 2em ;padding: 5px; font-size: 24px">
+            帮帮网是本人毕业设计项目，本着“互助互爱”的宗旨，为用户提供的互帮互助机制，平台中的求助信息均有用户自发提供，您在注册后可以成为帮帮网用户。 在您加入帮帮网之前，请先仔细阅读并充分理解本公约的全部内容。
+        </p>
+        <p style="text-indent: 2em ;padding: 5px; font-size: 24px">
+            本网站仅对网站成员开发，未注册成员仅能使用网站部分功能。完成注册后，用户可进行文章发布、评论、文章搜索、文章查看等相关操作，请各位用户按照要求发布文章，共建和谐、文明网络环境。
+        </p>
+        <p style="text-indent: 2em ;padding: 5px; font-size: 24px">
+            目前用户可以申请成为网站管理员，当用户文章点赞总数达50时，用户便可在个人管理中心界面申请成为网站管理员。
+        </p>
+        <p style="text-indent: 2em ;padding: 5px; font-size: 24px">
+            之后相关规定，请及时关注本界面或网站首页。
+        </p>
+    </div>
+
+{% endblock %}
+</body>
+</html>

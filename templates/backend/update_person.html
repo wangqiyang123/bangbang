@@ -1,0 +1,44 @@
+{% extends 'backend/backend_base.html' %}
+{% load static %}
+{% block ui_li %}
+
+    <div>
+        <form action="/index/handle_update_person/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="u_name">用户名</label>
+                <input type="text" name="u_name" class="form-control" id="u_name" value="{{ user.u_name }}">
+            </div>
+
+            <div class="form-group">
+                <label for="u_phone">手机号</label>
+                <input  type="text"  name="u_phone" class="form-control" id="phone" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')" value="{{ user.u_phone }}"/>
+            </div>
+            <div class="form-group">
+                <label >性别</label>
+                {% if user.u_gender == 'male' %}
+                    <input type="radio" name="gender" id="male" value="male" checked><label for="male">男</label>
+                <input type="radio" name="gender" id="female" value="female"><label for="female">女</label>
+                {% else %}
+                    <input type="radio" name="gender" id="male" value="male" ><label for="male">男</label>
+                <input type="radio" name="gender" id="female" value="female" checked><label for="female">女</label>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="u_birthday">生日</label>
+                <input type="date" name="u_birthday" class="form-control" id="u_birthday" value="{{ user.u_birthday }}">
+            </div>
+
+            <div class="form-group">
+                <label for="head_picture">修改头像</label>
+                <input type="file" name="u_head_picture" id="head_picture">
+
+            </div>
+
+            <button type="submit" class="btn btn-default">提交</button>
+        </form>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    {% extends 'index.html' %}
+    {% load static %}
+</head>
+<body>
+{% block middle %}
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+
+                <div class="top-nav">
+                    <span class="menu"><img src="{% static 'images/menu.png' %}" alt=""> </span>
+
+                    <ul>
+                        <li><a href="{% url "home" %}">主页</a><span>/</span></li>
+                        <li><a href="#">关于我们</a><span>/</span></li>
+                        <li><a href="{% url "help" %}">互助广场</a><span>/</span></li>
+                        <li><a href="{% url "single" %}">公约</a><span>/</span></li>
+                        <li><a href="{% url "login" %}">登录</a></li>
+                    </ul>
+
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="logo">
+                    <h1><a href="{% url "home" %}">帮帮网</a></h1>
+                    <p>Social Services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="text-align: center;margin: 10px">
+        <h2>您的账号为：{{ data }}</h2><br>
+        <h4>页面将在20秒后自动跳转。若无<a href="{% url "login" %}">点击此连接跳转</a></h4>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

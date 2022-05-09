@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+
+    {% load static %}
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all"/>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/inputTags.css' %}">
+    <script src="{% static 'js/inputTags.js' %}"></script>
+    <script src="{% static 'js/jq.js' %}"></script>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
+    <style type="text/css">
+        .area1 select {
+            width: 12em;
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'home_backend' %}">{{ user.u_name }}的个人管理中心</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                <li><a href="{% url "home" %}">返回帮帮网</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="">欢迎，{{ user.u_name }}</a></li>
+                <li>
+                    <a href="{% url "logout" %}">退出登录</a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                综合管理
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <a href="/index/add_article/">添加文章</a>
+                        </div>
+                        <div class="panel-body">
+                            <a href="/index/up_dateperson/">修改个人信息</a>
+                        </div>
+                        <div class="panel-body">
+                            <a href="/index/update_password/">修改密码</a>
+                        </div>
+                        <div class="panel-body">
+                            {% if user.u_post == 0 %}
+                                <a href="/index/up_admin/">申请管理员</a>
+                                <p style="color: red">{{ msg }}</p>
+                            {% else %}
+                                <a href="{% url 'admin_home' %}">进入管理员界面</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div>
+                {% block ui_li %}
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                                  data-toggle="tab">文章</a></li>
+                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab"
+                                                   data-toggle="tab">个人信息</a>
+                        </li>
+                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab"
+                                                   data-toggle="tab">评论</a>
+                        </li>
+
+                    </ul>
+                {% endblock %}
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        {% block article %}
+                        {% endblock %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        {% block person %}
+                        {% endblock %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="messages">
+                        {% block commit %}
+                        {% endblock %}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

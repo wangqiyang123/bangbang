@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>互助广场</title>
+    {% extends "index.html" %}
+    {% load static %}
+
+</head>
+<body>
+{% block middle %}
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="top-nav">
+                    <span class="menu"><img src="{% static 'images/menu.png' %}" alt=""> </span>
+
+                    <ul>
+                        <li><a href="{% url "home" %}">主页</a><span>/</span></li>
+                        <li><a href="{% url "about" %}">关于我们</a><span>/</span></li>
+                        <li class="active"><a href="{% url "help" %}">互助广场</a><span>/</span></li>
+                        <li><a href="{% url "single" %}">公约</a><span>/</span></li>
+                        {% if is_login %}
+                            <li><a href="/index/{{ u_id }}">欢迎：{{ username }}</a></li>
+                            <li><a href="{% url "logout" %}">退出登录</a></li>
+                        {% else %}
+                            <li><a href="{% url "login" %}">登录</a></li>
+
+                        {% endif %}
+                    </ul>
+
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container">
+                <div class="logo">
+                    <h1><a href="{% url "home" %}">帮帮网</a></h1>
+                    <p>Social Services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="panel panel-default">
+                    <form class="search-form" action="{% url 'search' %}">
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input type="text" name="wd" class="form-control" placeholder="站内文章查询">
+                            </div>
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                                查找
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">广告位招租</div>
+                    <div class="panel-body">
+                        联系电话：9999999
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">中国红十字会</h3>
+                    </div>
+                    <div class="panel-body">
+                        <a href="https://www.redcross.org.cn/">点我哦</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                {% if msg %}
+                    <p style="color: red">{{ msg }} <a href="{% url 'login' %}">点此跳转</a></p>
+                {% endif %}
+
+                {% for article in page_article %}
+                    <h4>
+                        <a href="/index/{{ article.blog.p_user.u_id }}/article/{{ article.nid }}">{{ article.title }}</a>
+                    </h4>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="/index/{{ article.blog.p_user.u_id }}">
+                                <img class="media-object" src="{% static article.blog.p_user.u_head_picture.url %}"
+                                     width="60px" height="60px" alt="无法加载">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            {{ article.detail_area }}
+                        </div>
+                    </div>
+                    <div class="bottom_article" style="margin-bottom: 5px">
+                        <span style="margin-right: 10px"><a
+                                href="/index/{{ article.blog.p_user.u_id }}">{{ article.blog.p_user.u_name }}</a></span>
+                        <span style="margin-right: 5px">发布于：{{ article.upload_time|date:'Y-m-d H:i' }}</span>
+                        <span style="margin-right: 5px"
+                              class="glyphicon glyphicon-comment">评论({{ article.commit_num }})</span>
+                        <span class="glyphicon glyphicon-thumbs-up">点赞({{ article.up_num }})</span>
+                    </div>
+                {% endfor %}
+                <div style="margin-top: 10px">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {% if page_article.has_previous %}
+                                <li>
+                                    <a href="{% url 'help' %}?number={{ page_article.previous_page_number }}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% for number in page_article.paginator.page_range %}
+                                <li><a href="{% url 'help' %}?number={{ number }}">{{ number }}</a></li>
+                            {% endfor %}
+                            {% if page_article.has_next %}
+                                <li>
+                                    <a href="{% url 'help' %}?number={{ page_article.next_page_number }}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">标签分类</div>
+                    <div class="panel-body">
+                        {% for tag in tag_ret %}
+                            <p><a href="/index/help/tag/{{ tag.0 }}">{{ tag.0 }}({{ tag.1 }})</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">文章类型</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for category in category_ret %}
+                            <p>
+                                <a href="/index/help/category/{{ category.0 }}">{{ category.0 }}({{ category.1 }})</a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">发布日期</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for time in time_ret %}
+                            <p>
+                                <a href="/index/help/archive/{{ time.0|date:"Y-m" }}">{{ time.0|date:"Y年m月" }}({{ time.1 }})</a>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

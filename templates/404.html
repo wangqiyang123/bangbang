@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% extends 'index.html' %}
+        {% load static %}
+
+    </head>
+    <body>
+    {% block middle %}
+        <div class="header">
+        <div class="header-top">
+            <div class="container">
+
+                    <div class="top-nav">
+                        <span class="menu"><img src="{% static 'images/menu.png' %}" alt=""> </span>
+                        <ul>
+                            <li><a href="{% url "home" %}"  >主页</a><span>/</span></li>
+                            <li><a href="{% url "about" %}" >关于我们</a><span>/</span></li>
+                            <li><a href="">互助广场</a><span>/</span></li>
+                            <li><a href="blog.html" >公约</a><span>/</span></li>
+                            <li ><a href="{% url "login" %}" >登录</a></li>
+                        </ul>
+
+                        <!--script-->
+                    <script>
+                        $("span.menu").click(function(){
+                            $(".top-nav ul").slideToggle(500, function(){
+                            });
+                        });
+                </script>
+                    </div>
+
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="container">
+                    <div class="logo">
+                        <h1><a href="{% url "home" %}">帮帮网</a></h1>
+                        <p>Social Services</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+        <div class="four">
+         <div class="container">
+                    <h3>404</h3>
+                    <p>The page you're looking for could not be found.</p>
+                        <a href="/index/home/" class="hvr-rectangle-out">Go back</a>
+                </div>
+        </div>
+    {% endblock %}
+
+    </body>
+</html>
