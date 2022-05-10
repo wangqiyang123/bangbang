@@ -21,7 +21,7 @@
                         <li><a href="{% url "about" %}">关于我们</a><span>/</span></li>
 
                         <li><a href="{% url "help" %}">互助广场</a><span>/</span></li>
-                        <li><a href="">公约</a><span>/</span></li>
+                        <li><a href="{% url "single" %}">公约</a><span>/</span></li>
                         {% if is_login %}
                             <li><a href="/index/{{ u_id }}">欢迎：{{ username }}</a></li>
                             <li><a href="{% url "logout" %}">退出登录</a></li>
