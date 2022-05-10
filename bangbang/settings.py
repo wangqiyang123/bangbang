@@ -26,7 +26,7 @@ SECRET_KEY = '-mi_-4pa7ght2^pv#3swjvdif2gs3f)1a$4a$$f=*th$^b^(5^'
 DEBUG = False
 
 #ALLOWED_HOSTS = ['39.99.241.251']
-ALLOWED_HOSTS = ['127.0.0.1','localhost','192.168.0.168','*']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','192.168.0.168','39.99.241.251','*']
 
 
 # Application definition
