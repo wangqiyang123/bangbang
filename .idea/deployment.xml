@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="aliyun" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="aliyun" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="aliyun">
         <serverdata>
@@ -12,11 +12,10 @@
       <paths name="root@39.99.241.251:22 password">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/pycharm_project_450" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/pycharm_project_892" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

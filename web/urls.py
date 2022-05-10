@@ -16,6 +16,7 @@ urlpatterns = [
     # 公约
     path("gongyue/", views.single, name="single"),
     path("logout/", views.logout, name="logout"),
+
     path("help/", views.help, name="help"),
     path("search/",views.search,name="search"),
 

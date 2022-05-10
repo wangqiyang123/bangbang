@@ -210,24 +210,36 @@
             <div class="content-mid">
                 <h3> 高赞文章</h3>
                 <div class="news">
-                    <div class="col-md-6 new-more">
-                        <div class="six">
-                            <h4>{{ best_article.upload_time.day }}<span>{{ best_article.upload_time.month }}月</span></h4>
-                            <h6><a href="/index/{{ best_article.blog.p_user.u_id }}/article/{{ best_article.nid }}">{{ best_article.title }}</a></h6>
-                            <div class="clearfix"></div>
+                    {% if article_list %}
+                        <div class="col-md-6 new-more">
+                            <div class="six">
+                                <h4>{{ best_article.upload_time.day }}<span>{{ best_article.upload_time.month }}月</span>
+                                </h4>
+                                <h6>
+                                    <a href="/index/{{ best_article.blog.p_user.u_id }}/article/{{ best_article.nid }}">{{ best_article.title }}</a>
+                                </h6>
+                                <div class="clearfix"></div>
+                            </div>
+                            <p>{{ best_article.area }}{{ best_article.detail_area }}</p>
+                            <a class="hvr-rectangle-out"
+                               href="/index/{{ best_article.blog.p_user.u_id }}/article/{{ best_article.nid }}">了解详情</a>
                         </div>
-                        <p>{{ best_article.area }}{{ best_article.detail_area }}</p>
-                        <a class="hvr-rectangle-out" href="/index/{{ best_article.blog.p_user.u_id }}/article/{{ best_article.nid }}">了解详情</a>
-                    </div>
-                    <div class="col-md-6 new-more">
-                        <div class="six">
-                            <h4>{{ second_article.upload_time.day }}<span>{{ second_article.upload_time.month }}月</span></h4>
-                            <h6><a href="/index/{{ second_article.blog.p_user.u_id }}/article/{{ second_article.nid }}">{{ second_article.title }}</a></h6>
-                            <div class="clearfix"></div>
+                        <div class="col-md-6 new-more">
+                            <div class="six">
+                                <h4>{{ second_article.upload_time.day }}<span>{{ second_article.upload_time.month }}月</span>
+                                </h4>
+                                <h6>
+                                    <a href="/index/{{ second_article.blog.p_user.u_id }}/article/{{ second_article.nid }}">{{ second_article.title }}</a>
+                                </h6>
+                                <div class="clearfix"></div>
+                            </div>
+                            <p>{{ second_article.area }}{{ second_article.detail_area }}</p>
+                            <a class="hvr-rectangle-out"
+                               href="/index/{{ second_article.blog.p_user.u_id }}/article/{{ second_article.nid }}">了解详情</a>
                         </div>
-                        <p>{{ second_article.area }}{{ second_article.detail_area }}</p>
-                        <a class="hvr-rectangle-out" href="/index/{{ second_article.blog.p_user.u_id }}/article/{{ second_article.nid }}">了解详情</a>
-                    </div>
+                    {% else %}
+                        暂无文章
+                    {% endif %}
                     <div class="clearfix"></div>
                 </div>
             </div>

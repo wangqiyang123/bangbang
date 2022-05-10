@@ -170,13 +170,14 @@ def index(request):
     num = 0
     id = 0
 
+
     for article in article_list:
 
         if article.up_num >= num:
             num = article.up_num
             id = article.pk
-
-    best_article = models.Article.objects.get(nid=id)
+    if id != 0:
+        best_article = models.Article.objects.get(nid=id)
 
     second = 0
     sid = 0
@@ -185,8 +186,8 @@ def index(request):
         if article.up_num >= second and article.up_num < num:
             second = article.up_num
             sid = article.pk
-
-    second_article = models.Article.objects.get(nid=sid)
+    if sid != 0:
+        second_article = models.Article.objects.get(nid=sid)
 
     return render(request, "index.html", locals())
 
