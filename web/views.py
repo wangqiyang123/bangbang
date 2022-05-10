@@ -1,4 +1,3 @@
-import jieba as jieba
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Count, F, Q
@@ -8,17 +7,17 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 # Create your views here.
-import cpca
+
 import smtplib
-import re
+
 from os import environ
-from os.path import exists
+
 from platform import system, node
 from time import strftime
 from email.mime.text import MIMEText
 from email.utils import formataddr
 from random import randint
-from easygui import msgbox, enterbox
+
 
 from users import models
 from users.models import p_User, Article
