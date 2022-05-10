@@ -22,7 +22,7 @@ from random import randint
 from users import models
 from users.models import p_User, Article
 
-title = '这是标题（请自行更改）'
+title = '帮帮网邮箱验证码'
 my_sender = 'bangyibang@126.com'  # 发件者邮箱（请自行更改）
 my_pass = 'CDJHIIBETCTTXRZV'  # 授权码（请自行更改）
 dt = strftime('%Y-%m-%d %H:%M:%S')
@@ -66,9 +66,9 @@ def mail(request):
     try:
         my_user = request.POST.get("email")
         msg = MIMEText('验证码：' + str(number), 'plain', 'utf-8')
-        msg['From'] = formataddr(["发件人名称（请自行更改）", my_sender])
+        msg['From'] = formataddr(["帮帮网", my_sender])
         msg['To'] = formataddr(["FK", my_user])
-        msg['Subject'] = "xxx的验证码（请自行更改）"
+        msg['Subject'] = "帮帮网验证码（请自行更改）"
         print('已经设置好邮件信息')
 
         server = smtplib.SMTP_SSL("smtp.126.com", 465)

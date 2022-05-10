@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,9 +24,8 @@ SECRET_KEY = '-mi_-4pa7ght2^pv#3swjvdif2gs3f)1a$4a$$f=*th$^b^(5^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#ALLOWED_HOSTS = ['39.99.241.251']
-ALLOWED_HOSTS = ['127.0.0.1','localhost','192.168.0.168','39.99.241.251','*']
-
+# ALLOWED_HOSTS = ['39.99.241.251']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.0.168', '39.99.241.251', '*']
 
 # Application definition
 
@@ -57,7 +55,7 @@ ROOT_URLCONF = 'bangbang.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -73,22 +71,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bangbang.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 from django.db.backends.mysql.base import DatabaseWrapper
+
 DatabaseWrapper.data_types['DateTimeField'] = "DateTime"
 DATABASES = {
     'default': {
-                'ENGINE': 'django.db.backends.mysql',  # 修改为mysql
-                'NAME': 'testbangbang',                     # 库名
-                'HOST': '127.0.0.1',	               # 主机名 ip
-                'PORT': 3306,						 # 端口号
-                'USER': 'root',	                       # 用户名
-                'PASSWORD':'root'                    # 密码
-              }
+        'ENGINE': 'django.db.backends.mysql',  # 修改为mysql
+        'NAME': 'testbangbang',  # 库名
+        'HOST': '127.0.0.1',  # 主机名 ip
+        'PORT': 3306,  # 端口号
+        'USER': 'root',  # 用户名
+        'PASSWORD': 'root'  # 密码
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -108,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -122,15 +118,47 @@ USE_L10N = True
 
 USE_TZ = False
 
+ADMINS = (
+    ('admin','379712430@qq.com'),
+)
+
+# 日志文件
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/home/bangbang_debug.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['special']
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '/static/'), MEDIA_ROOT]
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'/static/'),MEDIA_ROOT]
-
-SESSION_EXPIRE_AT_BROWSER_CLOSE=True  #session 生存周期
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # session 生存周期
