@@ -225,7 +225,9 @@ def logout(request):
 # 公约界面
 
 def single(request):
+    username = request.session.get("username", None)
     is_login = request.session.get("is_login", None)
+    u_id = request.session.get('u_id', None)
     return render(request, "single.html", locals())
 
 
