@@ -32,7 +32,6 @@ computer = node()
 number = randint(100000, 999999)  # 验证码
 err = Exception
 
-
 def search(request, *args, **kwargs):
     username = request.session.get("username", None)
     is_login = request.session.get("is_login", None)
