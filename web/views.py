@@ -68,12 +68,12 @@ def mail(request):
         msg = MIMEText('验证码：' + str(number), 'plain', 'utf-8')
         msg['From'] = formataddr(["帮帮网", my_sender])
         msg['To'] = formataddr(["FK", my_user])
-        msg['Subject'] = "帮帮网验证码（请自行更改）"
+        msg['Subject'] = "帮帮网验证码"
         print('已经设置好邮件信息')
 
         server = smtplib.SMTP_SSL("smtp.126.com", 465)
         server.login(my_sender, my_pass)
-        server.sendmail(my_sender, [my_user, ], msg.as_string())
+        server.sendmail(my_sender,my_user, msg.as_string())
         server.quit()
 
         return HttpResponse("ok");
